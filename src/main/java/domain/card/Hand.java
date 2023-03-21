@@ -14,7 +14,7 @@ public class Hand {
         this.cards = new ArrayList<>();
     }
 
-    public void addCard(Card card) {
+    public void addCard(final Card card) {
         cards.add(card);
     }
 
@@ -38,7 +38,7 @@ public class Hand {
         return cards.stream().anyMatch(Card::isAce);
     }
 
-    private int changeAnAceTo11(int score) {
+    private int changeAnAceTo11(final int score) {
         return score + ACE_OFFSET;
     }
 

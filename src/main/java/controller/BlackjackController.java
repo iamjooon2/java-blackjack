@@ -34,7 +34,7 @@ public class BlackjackController {
         }
     }
 
-    private void doGame(Deck deck, Participants participants) {
+    private void doGame(final Deck deck, final Participants participants) {
         initBetting(participants);
 
         initParticipantsHand(deck, participants);
@@ -42,14 +42,14 @@ public class BlackjackController {
         runDealerTurn(deck, participants);
     }
 
-    private void initBetting(Participants participants) {
+    private void initBetting(final Participants participants) {
         List<Player> players = participants.getPlayers();
         for (Player player : players) {
             betEachPlayer(player);
         }
     }
 
-    private void betEachPlayer(Player player) {
+    private void betEachPlayer(final Player player) {
         try {
             player.betPlayer(InputView.readBetMoney(ParticipantDto.from(player)));
         } catch (IllegalArgumentException e) {
@@ -58,7 +58,7 @@ public class BlackjackController {
         }
     }
 
-    private void initParticipantsHand(Deck deck, Participants participants) {
+    private void initParticipantsHand(final Deck deck, final Participants participants) {
         OutputView.printStartMessage(participants.getPlayers().stream()
                 .map(player -> ParticipantDto.from(player))
                 .collect(Collectors.toList()));
@@ -71,7 +71,7 @@ public class BlackjackController {
                 .collect(Collectors.toList()));
     }
 
-    public void runPlayersTurn(Deck deck, Participants participants) {
+    public void runPlayersTurn(final Deck deck, final Participants participants) {
         List<Player> players = participants.getPlayers();
         for (Player player : players) {
             runPlayerTurn(deck, player);
@@ -79,7 +79,7 @@ public class BlackjackController {
         InputView.closeScanner();
     }
 
-    private void runPlayerTurn(Deck deck, Player player) {
+    private void runPlayerTurn(final Deck deck, final Player player) {
         while (!player.isBust() && isCommandHit(player)) {
             player.addCard(deck.pollAvailableCard());
             ParticipantDto playerDto = ParticipantDto.from(player);
@@ -87,7 +87,7 @@ public class BlackjackController {
         }
     }
 
-    private boolean isCommandHit(Player player) {
+    private boolean isCommandHit(final Player player) {
         try {
             String targetCommand = InputView.readHit(ParticipantDto.from(player));
             return HitCommand.HIT == HitCommand.find(targetCommand);
@@ -97,14 +97,14 @@ public class BlackjackController {
         }
     }
 
-    private void runDealerTurn(Deck deck, Participants participants) {
+    private void runDealerTurn(final Deck deck, final Participants participants) {
         if (participants.canDealerHit()) {
             participants.playDealerTurn(deck);
             OutputView.printDealerHit();
         }
     }
 
-    private void printResult(Participants participants) {
+    private void printResult(final Participants participants) {
         ParticipantDto dealerDto = ParticipantDto.from(participants.getDealer());
         List<ParticipantDto> playerDtos = participants.getPlayers().stream()
                 .map(player -> ParticipantDto.from(player))

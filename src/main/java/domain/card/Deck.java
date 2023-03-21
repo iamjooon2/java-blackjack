@@ -21,7 +21,7 @@ public class Deck {
 
     private final Queue<Card> cards;
 
-    private Deck(ArrayDeque<Card> cards) {
+    private Deck(final ArrayDeque<Card> cards) {
         this.cards = cards;
     }
 

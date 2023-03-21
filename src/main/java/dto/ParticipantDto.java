@@ -22,24 +22,24 @@ public class ParticipantDto {
     private final List<String> cards;
     private final int score;
 
-    private ParticipantDto(Participant participant, List<String> cards) {
+    private ParticipantDto(final Participant participant, final List<String> cards) {
         this.name = participant.getName();
         this.cards = cards;
         this.score = participant.calculateScore();
     }
 
-    public static ParticipantDto from (Participant participant){
+    public static ParticipantDto from(final Participant participant) {
         List<String> cards = participant.getCards().stream()
                 .map(card -> makeCardView(card))
                 .collect(Collectors.toList());
         return new ParticipantDto(participant, cards);
     }
 
-    private static String makeCardView(Card card) {
+    private static String makeCardView(final Card card) {
         return makeDenominationView(card.getDenomination()) + makeSuitView(card.getSuit());
     }
 
-    private static String makeSuitView(Suit suit) {
+    private static String makeSuitView(final Suit suit) {
         if (Suit.DIAMOND.equals(suit)) {
             return DIAMOND;
         }
@@ -53,7 +53,7 @@ public class ParticipantDto {
         return CLUB;
     }
 
-    private static String makeDenominationView(Denomination denomination) {
+    private static String makeDenominationView(final Denomination denomination) {
         if (Denomination.ACE.equals(denomination)) {
             return ACE;
         }
@@ -81,7 +81,7 @@ public class ParticipantDto {
     public String getDealerFirstCard() {
         return cards.get(DEALER_VISIBLE_CARD_INDEX);
     }
-    
+
     public int getScore() {
         return score;
     }

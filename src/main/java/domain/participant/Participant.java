@@ -11,12 +11,12 @@ public abstract class Participant {
     private final String name;
     private final Hand hand;
 
-    Participant(String name) {
+    Participant(final String name) {
         this.hand = new Hand();
         this.name = name;
     }
 
-    public void addCard(Card card) {
+    public void addCard(final Card card) {
         hand.addCard(card);
     }
 
@@ -24,7 +24,7 @@ public abstract class Participant {
         return hand.getScore();
     }
 
-    public void initHand(List<Card> twoCards) {
+    public void initHand(final List<Card> twoCards) {
         twoCards.forEach(hand::addCard);
     }
 

@@ -13,12 +13,12 @@ public class BetAmount {
 
     private final int money;
 
-    private BetAmount(int money) {
+    private BetAmount(final int money) {
         validate(money);
         this.money = money;
     }
 
-    public static BetAmount from(int money) {
+    public static BetAmount from(final int money) {
         return new BetAmount(money);
     }
 
@@ -26,7 +26,7 @@ public class BetAmount {
         return new BetAmount(DEFAULT_BET_MONEY);
     }
 
-    private void validate(int money) {
+    private void validate(final int money) {
         validateMoneyRange(money);
         validateMoneyUnits(money);
     }
@@ -37,13 +37,13 @@ public class BetAmount {
         }
     }
 
-    private void validateMoneyUnits(int money) {
+    private void validateMoneyUnits(final int money) {
         if (money % BET_UNIT != 0) {
             throw new IllegalArgumentException(ERROR_BET_UNIT);
         }
     }
 
-    public static BetAmount calculateProfit(PlayerGameResult playerGameResult, BetAmount betAmount) {
+    public static BetAmount calculateProfit(final PlayerGameResult playerGameResult, final BetAmount betAmount) {
         return BetAmount.from(playerGameResult.calculateBenefit(betAmount.getMoney()));
     }
 

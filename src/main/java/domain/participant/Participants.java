@@ -22,12 +22,12 @@ public class Participants {
     private final Dealer dealer;
     private final List<Player> players;
 
-    private Participants(List<Player> players) {
+    private Participants(final List<Player> players) {
         this.dealer = new Dealer();
         this.players = players;
     }
 
-    public static Participants of(List<String> playersName) {
+    public static Participants of(final List<String> playersName) {
         validate(playersName);
 
         List<Player> players = playersName.stream()
@@ -37,30 +37,30 @@ public class Participants {
         return new Participants(players);
     }
 
-    private static void validate(List<String> names) {
+    private static void validate(final List<String> names) {
         validatePlayersCount(names);
         validateDuplication(names);
     }
 
-    private static void validatePlayersCount(List<String> names) {
+    private static void validatePlayersCount(final List<String> names) {
         if (names.size() < MIN_PLAYER_COUNT || names.size() > MAX_PLAYER_COUNT) {
             throw new IllegalArgumentException(ERROR_PLAYER_COUNT);
         }
     }
 
-    private static void validateDuplication(List<String> names) {
+    private static void validateDuplication(final List<String> names) {
         Set<String> setNames = new HashSet<>(names);
         if (setNames.size() != names.size()) {
             throw new IllegalArgumentException(ERROR_DUPLICATED_NAME);
         }
     }
 
-    public void initHand(Deck deck) {
+    public void initHand(final Deck deck) {
         dealer.initHand(deck.pollTwoCards());
         players.forEach(player -> player.initHand(deck.pollTwoCards()));
     }
 
-    public void playDealerTurn(Deck deck) {
+    public void playDealerTurn(final Deck deck) {
         dealer.addCard(deck.pollAvailableCard());
     }
 
@@ -79,7 +79,7 @@ public class Participants {
         return new LinkedHashMap<>(betResult);
     }
 
-    private PlayerGameResult getPlayerGameResult(Player player) {
+    private PlayerGameResult getPlayerGameResult(final Player player) {
         if (isPlayerBlackjack(player)) {
             return PlayerGameResult.BLACKJACK;
         }
@@ -92,15 +92,15 @@ public class Participants {
         return PlayerGameResult.LOSE;
     }
 
-    private boolean isPlayerBlackjack(Player player) {
+    private boolean isPlayerBlackjack(final Player player) {
         return player.isBlackjack() && !dealer.isBlackjack();
     }
 
-    private boolean isPlayerWin(Player player) {
+    private boolean isPlayerWin(final Player player) {
         return (player.calculateScore() > dealer.calculateScore() && !player.isBust()) || dealer.isBust();
     }
 
-    private boolean isDraw(Player player) {
+    private boolean isDraw(final Player player) {
         return player.calculateScore() == dealer.calculateScore();
     }
 

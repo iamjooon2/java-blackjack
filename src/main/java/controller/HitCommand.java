@@ -11,11 +11,11 @@ public enum HitCommand {
 
     private String value;
 
-    HitCommand(String value) {
+    HitCommand(final String value) {
         this.value = value;
     }
 
-    public static HitCommand find(String targetCommend) {
+    public static HitCommand find(final String targetCommend) {
         return Arrays.stream(HitCommand.values())
                 .filter(command -> Objects.equals(command.value, targetCommend))
                 .findAny()
